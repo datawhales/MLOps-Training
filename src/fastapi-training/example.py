@@ -5,9 +5,11 @@ from fastapi import FastAPI
 # Create a FastAPI instance
 app = FastAPI()
 
+
 @app.get("/")
 async def read_root():
     return {"Hello": "World"}
+
 
 @app.get("/items/{item_id}")
 async def read_item(item_id: int, q: Union[str, None] = None, short: bool = False):
@@ -19,6 +21,7 @@ async def read_item(item_id: int, q: Union[str, None] = None, short: bool = Fals
             {"description": "This is an amazing item that has a long description"}
         )
     return item
+
 
 @app.get("/files/{file_path:path}")
 async def read_file(file_path: str):

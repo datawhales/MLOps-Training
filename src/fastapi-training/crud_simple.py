@@ -3,42 +3,42 @@ from fastapi import FastAPI, HTTPException
 # Create a FastAPI instance
 app = FastAPI()
 
-# Items database
+# Users database
 # {name: {"name": name, "nickname": nickname}}
-items_db = {}
+users_db = {}
 
 
 @app.post("/name/{name}/nickname/{nickname}")
-async def create_item(name: str, nickname: str):
-    item = {"name": name, "nickname": nickname}
-    items_db.update({name: item})
-    return item
+async def create_user(name: str, nickname: str):
+    user = {"name": name, "nickname": nickname}
+    users_db.update({name: user})
+    return user
 
 
 @app.get("/name/{name}")
-async def read_item(name: str):
-    item = items_db.get(name)
-    if not item:
+async def read_user(name: str):
+    user = users_db.get(name)
+    if not user:
         raise HTTPException(status_code=400, detail="Name not found")
     else:
-        return item.get("nickname")
+        return user.get("nickname")
 
 
 @app.put("/name/{name}/nickname/{new_nickname}")
-async def update_item(name: str, new_nickname: str):
-    item = items_db.get(name)
-    if not item:
+async def update_user(name: str, new_nickname: str):
+    user = users_db.get(name)
+    if not user:
         raise HTTPException(status_code=400, detail="Name not found")
     else:
-        new_item = {"name": name, "nickname": new_nickname}
-        items_db.update({name: new_item})
-        return new_item
+        new_user = {"name": name, "nickname": new_nickname}
+        users_db.update({name: new_user})
+        return new_user
 
 
 @app.delete("/name/{name}")
-async def delete_item(name: str):
-    item = items_db.get(name)
-    if not item:
+async def delete_user(name: str):
+    user = users_db.get(name)
+    if not user:
         raise HTTPException(status_code=400, detail="Name not found")
     else:
-        items_db.pop(name)
+        users_db.pop(name)

@@ -1,8 +1,19 @@
 from meta import MyDB
 
-from sklearn.datasets import load_iris
 import pandas as pd
 import psycopg2
+from sklearn.datasets import load_iris
+
+# Load iris dataset
+iris_dataset = load_iris()
+features, labels = iris_dataset["data"], iris_dataset["target"]
+feature_names = ["sepal_length_cm", "sepal_width_cm", "petal_length_cm", "petal_width_cm"]
+label_names = ["target"]
+
+feature_df = pd.DataFrame(features, columns=feature_names)
+label_df = pd.DataFrame(labels, columns=label_names)
+
+df = pd.concat([feature_df, label_df], axis=1)
 
 # Connect to an existing database
 conn = psycopg2.connect(
@@ -15,17 +26,6 @@ conn = psycopg2.connect(
 
 # Open a cursor to perform database operations
 cur = conn.cursor()
-
-# Load iris dataset
-iris_dataset = load_iris()
-features, labels = iris_dataset["data"], iris_dataset["target"]
-feature_names = ["sepal_length_cm", "sepal_width_cm", "petal_length_cm", "petal_width_cm"]
-label_names = ["target"]
-
-feature_df = pd.DataFrame(features, columns=feature_names)
-label_df = pd.DataFrame(labels, columns=label_names)
-
-df = pd.concat([feature_df, label_df], axis=1)
 
 # Execute a SQL command (insert row)
 cur.execute(

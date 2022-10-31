@@ -22,28 +22,25 @@ def data_generator(df: pd.DataFrame):
     Data generator
     """
     idx = 0
-    while idx < len(df):
+    while True:
         yield tuple(df.iloc[idx].values)
         idx += 1
+        idx %= len(df)
 
 
 gen = data_generator(df)
 
-while True:
-    # Connect to an existing database
-    conn = psycopg2.connect(
-        database=MyDB.database,
-        user=MyDB.user,
-        password=MyDB.password,
-        host=MyDB.host,
-        port=MyDB.port,
-    )
+# Connect to an existing database
+conn = psycopg2.connect(
+    database=MyDB.database,
+    user=MyDB.user,
+    password=MyDB.password,
+    host=MyDB.host,
+    port=MyDB.port,
+)
 
-    try:
-        data_row = next(gen)
-    except StopIteration:
-        gen = data_generator(df)
-        data_row = next(gen)
+while True:
+    data_row = next(gen)
 
     # Open a cursor to perform database operations
     with conn.cursor() as cursor:
@@ -59,4 +56,4 @@ while True:
         # Make the changes to the database persistent
         conn.commit()
 
-    conn.close()
+conn.close()

@@ -16,7 +16,20 @@ label_df = pd.DataFrame(labels, columns=label_names)
 
 df = pd.concat([feature_df, label_df], axis=1)
 
-for i in range(len(df)):
+
+def data_generator(df: pd.DataFrame):
+    """
+    Data generator
+    """
+    idx = 0
+    while idx < len(df):
+        yield tuple(df.iloc[idx].values)
+        idx += 1
+
+
+gen = data_generator(df)
+
+while True:
     # Connect to an existing database
     conn = psycopg2.connect(
         database=MyDB.database,
@@ -26,21 +39,24 @@ for i in range(len(df)):
         port=MyDB.port,
     )
 
+    try:
+        data_row = next(gen)
+    except StopIteration:
+        gen = data_generator(df)
+        data_row = next(gen)
+
     # Open a cursor to perform database operations
-    cur = conn.cursor()
+    with conn.cursor() as cursor:
+        # Execute a SQL command (insert rows continuously)     
+        cursor.execute(
+            """INSERT INTO iris_data (
+                sepal_length_cm, sepal_width_cm, petal_length_cm, petal_width_cm, target
+            ) VALUES (%s, %s, %s, %s, %s)""", data_row
+        )
 
-    # Execute a SQL command (insert rows continuously)     
-    cur.execute(
-    """INSERT INTO iris_data (
-        sepal_length_cm, sepal_width_cm, petal_length_cm, petal_width_cm, target
-    ) VALUES (%s, %s, %s, %s, %s)""", tuple(df.iloc[i].values)
-)
+        time.sleep(5)
 
-    time.sleep(5)
+        # Make the changes to the database persistent
+        conn.commit()
 
-    # Make the changes to the database persistent
-    conn.commit()
-
-    # Close communication with the database
-    cur.close()
     conn.close()

@@ -25,18 +25,15 @@ conn = psycopg2.connect(
 )
 
 # Open a cursor to perform database operations
-cur = conn.cursor()
+with conn.cursor() as cursor:
+    # Execute a SQL command (insert row)
+    cursor.execute(
+        """INSERT INTO iris_data (
+            sepal_length_cm, sepal_width_cm, petal_length_cm, petal_width_cm, target
+        ) VALUES (%s, %s, %s, %s, %s)""", tuple(df.iloc[0].values)
+    )
 
-# Execute a SQL command (insert row)
-cur.execute(
-    """INSERT INTO iris_data (
-        sepal_length_cm, sepal_width_cm, petal_length_cm, petal_width_cm, target
-    ) VALUES (%s, %s, %s, %s, %s)""", tuple(df.iloc[0].values)
-)
+    # Make the changes to the database persistent
+    conn.commit()
 
-# Make the changes to the database persistent
-conn.commit()
-
-# Close communication with the database
-cur.close()
 conn.close()

@@ -1,2 +1,2 @@
-docker build -f docker/Dockerfile -t datawhales/postgresql-training:0.1.1 .
-docker push datawhales/postgresql-training:0.1.1
+docker build -f docker/Dockerfile -t datawhales/postgresql-training:0.1.2 .
+docker push datawhales/postgresql-training:0.1.2

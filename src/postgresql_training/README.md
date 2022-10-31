@@ -60,18 +60,18 @@ $ python insert_rows_cont.py
 - 데이터를 지속적으로 테이블에 삽입하는 스크립트를 실행하는 도커 이미지를 빌드합니다.
 - 다음과 같이 이미지를 빌드하여 [docker hub](https://hub.docker.com/)에 업로드하였습니다.
 ```console
-$ docker build -f docker/Dockerfile -t datawhales/postgresql-training:0.1.1 .
+$ docker build -f docker/Dockerfile -t datawhales/postgresql-training:0.1.2 .
 ```
 - 해당 이미지를 사용하려면 다음과 같이 pull 하여 사용할 수 있습니다.
 ```console
-$ docker pull datawhales/postgresql-training:0.1.1
+$ docker pull datawhales/postgresql-training:0.1.2
 ```
 <br>
 
 **7. Run a Container Inserting Data to PostgreSQL Server**  
 - 빌드한 이미지를 이용하여 도커 컨테이너를 작동시키고 테이블에 데이터가 잘 들어가는지 확인합니다.
 ```console
-$ docker run datawhales/postgresql-training:0.1.1
+$ docker run datawhales/postgresql-training:0.1.2
 ```
 <br>
 

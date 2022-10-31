@@ -22,8 +22,7 @@ RUN sudo apt update && sudo apt install -y postgresql
 COPY . /root
 
 ENV PATH="/usr/local/bin/python3:$PATH"
-RUN cd docker \
-    && pip install -U pip \
+RUN pip install -U pip \
     && pip install -r requirements.txt
 
 CMD ["python", "insert_rows_cont.py"]

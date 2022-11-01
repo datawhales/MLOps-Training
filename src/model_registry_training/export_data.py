@@ -58,6 +58,7 @@ if __name__ == "__main__":
         database=MyDB.database,
     )
 
+    # Read data from db
     df = pgdataset.read_data(sql_query="SELECT * FROM iris_data ORDER BY id DESC LIMIT 100;")
 
     print(df)

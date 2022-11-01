@@ -1,6 +1,6 @@
-from meta import MyDB
-
 import psycopg2
+
+from postgresql_training.meta import MyDB
 
 # Connect to an existing database
 conn = psycopg2.connect(

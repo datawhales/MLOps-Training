@@ -1,8 +1,8 @@
-from meta import MyDB
-
 import pandas as pd
 import psycopg2
 from sklearn.datasets import load_iris
+
+from postgresql_training.meta import MyDB
 
 # Load iris dataset
 iris_dataset = load_iris()

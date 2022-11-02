@@ -1,3 +1,9 @@
+"""
+Table Create module
+
+Description:
+    This module creates table in PostgreSQL DB.
+"""
 import psycopg2
 
 from postgresql_training.meta import MyDB

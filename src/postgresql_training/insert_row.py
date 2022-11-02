@@ -1,3 +1,9 @@
+"""
+Data Insert module
+
+Description:
+    This module inserts data into table in postgresQL DB.
+"""
 import pandas as pd
 import psycopg2
 from sklearn.datasets import load_iris

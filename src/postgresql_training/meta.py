@@ -1,3 +1,9 @@
+"""
+PostgreSQL DB Connection module
+
+Description:
+    This module includes the postgreSQL DB connection informations.
+"""
 from dataclasses import dataclass
 
 

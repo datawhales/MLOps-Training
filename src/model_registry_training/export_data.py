@@ -1,3 +1,9 @@
+"""
+PostgreSQL DB connect module
+
+Description:
+    This module connects to postgreSQL DB and read data from table.
+"""
 import pandas as pd
 from sqlalchemy import create_engine
 

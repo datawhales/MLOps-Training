@@ -8,7 +8,7 @@ from pathlib import Path
 from mlflow import MlflowClient
 
 # Create a client of MLFlow Tracking Server
-client = MlflowClient(tracking_uri="http://127.0.0.1:5000")
+client = MlflowClient(tracking_uri="http://127.0.0.1:5001")
 
 # Create MLFlow experiment
 experiment_id = client.create_experiment(

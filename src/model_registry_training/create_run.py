@@ -4,7 +4,6 @@ MLFlow Run Create Module
 Description:
     This module creates test run in MLFlow Server.
 """
-from pathlib import Path
 from mlflow import MlflowClient
 
 # Create a client of MLFlow Tracking Server

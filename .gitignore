@@ -57,6 +57,7 @@ coverage.xml
 
 # MLflow stuff:
 mlruns/
+download/
 
 # Django stuff:
 *.log

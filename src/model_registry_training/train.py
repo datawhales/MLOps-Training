@@ -74,5 +74,8 @@ def train(df):
 
 
 if __name__ == "__main__":
+    # Get data from db
     df = get_data()
+
+    # Model training
     train(df=df)

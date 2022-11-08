@@ -55,6 +55,10 @@ coverage.xml
 *.mo
 *.pot
 
+# MLflow stuff:
+mlruns/
+download/
+
 # Django stuff:
 *.log
 local_settings.py

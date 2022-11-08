@@ -1,0 +1,4 @@
+mlflow==1.30.0
+sqlalchemy==1.4.42
+numpy==1.23.4
+scikit-learn==1.1.3

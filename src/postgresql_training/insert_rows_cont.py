@@ -1,9 +1,15 @@
-from meta import MyDB
+"""
+Streaming Data Insert module
 
+Description:
+    This module inserts data periodically into table in postgreSQL DB.
+"""
 import pandas as pd
 import psycopg2
 from sklearn.datasets import load_iris
 import time
+
+from postgresql_training.meta import MyDB
 
 # Load iris dataset
 iris_dataset = load_iris()

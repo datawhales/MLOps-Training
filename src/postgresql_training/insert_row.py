@@ -1,8 +1,14 @@
-from meta import MyDB
+"""
+Data Insert module
 
+Description:
+    This module inserts data into table in postgresQL DB.
+"""
 import pandas as pd
 import psycopg2
 from sklearn.datasets import load_iris
+
+from postgresql_training.meta import MyDB
 
 # Load iris dataset
 iris_dataset = load_iris()

@@ -17,15 +17,20 @@ def download_model():
     client = MlflowClient()
 
     # Get run info
-    df = mlflow.search_runs(experiment_names=["Test Experiment"])
-
+    df = mlflow.search_runs(max_results=1, experiment_names=["Test Experiment"])
+    run_id_list = [id for id in df["run_id"]]
+    
+    for id in run_id_list:
+        print(id)
+    
     # Get run_id
-    run_id = df[df["tags.mlflow.runName"] == "Iris"]["run_id"].item()
+    run_id_sample = run_id_list[0]
+    print(run_id_sample)
 
     # Download model
     os.makedirs("download", exist_ok=True)
     download_path = client.download_artifacts(
-        run_id=run_id,
+        run_id=run_id_sample,
         path="random-forest",
         dst_path="download",
     )

@@ -59,14 +59,15 @@ def train(df):
 
         # Model predict
         y_pred = model.predict(X_test)
+        score = round(precision_recall_fscore_support(y_test, y_pred, average='weighted')[2], 4)
         print("\n=============== Random Forest ===============")
         print(classification_report(y_test, y_pred))
-        print(f"Weighted avg f1-score: {precision_recall_fscore_support(y_test, y_pred, average='weighted')[2]:.4f}")
+        print(f"Weighted avg f1-score: {score}")
 
         # Metrics logging
         mlflow.log_metric(
             key="weighted_f1_score",
-            value=round(precision_recall_fscore_support(y_test, y_pred, average='weighted')[2], 4),
+            value=score,
         )
 
         # Model logging

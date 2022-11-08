@@ -5,7 +5,7 @@ app = FastAPI()
 
 # Users database
 # {name: {"name": name, "nickname": nickname}}
-users_db = {}
+users_db = {"hello": {"name": "hello", "nickname": "world"}}
 
 
 @app.post("/name/{name}/nickname/{nickname}")

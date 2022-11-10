@@ -6,7 +6,8 @@ Description:
 """
 from sqlalchemy.orm import Session
 
-from fastapi_training.my_app import models, schemas
+import models
+import schemas
 
 
 def get_user(db: Session, user_id: int):

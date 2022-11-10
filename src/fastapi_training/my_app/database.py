@@ -16,11 +16,11 @@ from sqlalchemy.orm import sessionmaker
 
 # Set up DB configuration
 config = {
-    "user": "postgres",
-    "password": "apipassword",
-    "host": "172.25.0.245",
-    "port": 5433,
-    "database": "apidatabase",
+    "user": "apidbuser",
+    "password": "apidbpw",
+    "host": "db",
+    "port": 5432,
+    "database": "apidb",
 }
 
 SQLALCHEMY_DATABASE_URL = f"postgresql://{config['user']}:{config['password']}@{config['host']}:{config['port']}/{config['database']}"

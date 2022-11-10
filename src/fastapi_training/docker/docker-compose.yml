@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:14.0
+    container_name: postgres-server
+    environment:
+      POSTGRES_DB: apidb
+      POSTGRES_USER: apidbuser
+      POSTGRES_PASSWORD: apidbpw
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "apidbuser", "-d", "apidb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+
+  api:
+    image: datawhales/fastapi-image:0.1.0
+    container_name: fastapi-server
+    ports:
+      - 7777:7777
+    command: uvicorn main:app --host 0.0.0.0 --port 7777 --reload
+    depends_on:
+      db:
+        condition: service_healthy

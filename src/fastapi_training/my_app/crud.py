@@ -22,8 +22,13 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_user(db: Session, user: schemas.UserCreateIn):
-    db_item = models.User(**user.dict())
-    db.add(db_item)
+    db_user = models.User(**user.dict())
+    db.add(db_user)
     db.commit()
-    db.refresh(db_item)
-    return db_item
+    db.refresh(db_user)
+    return schemas.UserCreateOut(
+        id=db_user.id,
+        name=db_user.name,
+        nickname=db_user.nickname,
+        status="success",
+    )

@@ -4,9 +4,9 @@ SQLAlchemy model module
 Description:
     This module creates sqlalchemy models.
 """
-from sqlalchemy import Column, Integer, String
-
 from database import Base
+
+from sqlalchemy import Column, Integer, String
 
 
 class User(Base):

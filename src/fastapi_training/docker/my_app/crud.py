@@ -4,10 +4,9 @@ CRUD Utils module
 Description:
     This module implements utils used for CRUD.
 """
-from sqlalchemy.orm import Session
-
 import models
 import schemas
+from sqlalchemy.orm import Session
 
 
 def get_user(db: Session, user_id: int):

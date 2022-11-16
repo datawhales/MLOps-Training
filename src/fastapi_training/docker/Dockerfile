@@ -1,7 +1,7 @@
-FROM python:3.8
+FROM amd64/python:3.9-slim
 
 LABEL maintainer="Seokgi Kim <datawhales@gmail.com>"
-WORKDIR /root
+WORKDIR /usr/app
 
 RUN apt-get update && apt-get install -y \
     curl \
@@ -16,16 +16,18 @@ RUN apt-get update && apt-get install -y \
     make \
     wget \
     lshw \
+    tree \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt update && sudo apt install -y postgresql
-COPY ./my_app /root
-COPY requirements.txt /root/requirements.txt
 
 ENV PATH="/usr/local/bin/python3:$PATH"
+
 RUN pip install -U pip \
-    && pip install -r requirements.txt
+    && pip install "fastapi[all]" sqlalchemy psycopg2-binary
+
+COPY ./my_app /usr/app
 
 EXPOSE 7777
 
-CMD uvicorn main:app --proxy-headers --host 0.0.0.0 --port 7777 --reload
+ENTRYPOINT uvicorn main:app --host 0.0.0.0 --port 7777 --reload

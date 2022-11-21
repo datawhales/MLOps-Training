@@ -9,7 +9,7 @@ import psycopg2
 from sklearn.datasets import load_iris
 import time
 
-from postgresql_training.meta import MyDB
+from meta import MyDB
 
 # Load iris dataset
 iris_dataset = load_iris()
@@ -57,7 +57,7 @@ while True:
             ) VALUES (%s, %s, %s, %s, %s)""", data_row
         )
 
-        time.sleep(5)
+        time.sleep(1)
 
         # Make the changes to the database persistent
         conn.commit()

@@ -17,7 +17,7 @@ def download_model():
     client = MlflowClient()
 
     # Get run info
-    df = mlflow.search_runs(max_results=1, experiment_names=["Test Experiment"])
+    df = mlflow.search_runs(max_results=10, experiment_names=["Default"])
     run_id_list = [id for id in df["run_id"]]
     
     for id in run_id_list:
@@ -25,7 +25,7 @@ def download_model():
     
     # Get run_id
     run_id_sample = run_id_list[0]
-    print(run_id_sample)
+    print(f"\nSample Run ID: {run_id_sample}\n")
 
     # Download model
     os.makedirs("download", exist_ok=True)
@@ -50,7 +50,7 @@ def get_iris_sample():
     iris_dataset = load_iris()
 
     features = iris_dataset["data"]
-    feature_names = ["sepal_length_cm", "sepal_width_cm", "petal_length_cm", "petal_width_cm"]
+    feature_names = ["sepal_length", "sepal_width", "petal_length", "petal_width"]
 
     feature_df = pd.DataFrame(features, columns=feature_names)
     return feature_df.sample(1)
@@ -68,5 +68,5 @@ if __name__ == "__main__":
     print(f"\nIris data sample:\n{iris_sample}")
 
     # Predict with loaded model
-    pred = model.predict(iris_sample)
+    pred = model.predict(iris_sample).item()
     print(f"\nPrediction: {pred}")

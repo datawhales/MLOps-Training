@@ -1,7 +1,7 @@
-FROM python:3.8
+FROM amd64/python:3.9-slim
 
 LABEL maintainer="Seokgi Kim <datawhales@gmail.com>"
-WORKDIR /root
+WORKDIR /usr/app
 
 RUN apt-get update && apt-get install -y \
     curl \
@@ -16,12 +16,15 @@ RUN apt-get update && apt-get install -y \
     make \
     wget \
     lshw \
+    tree \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt update && sudo apt install -y postgresql
-COPY . /root
+COPY ./requirements.txt /usr/app/requirements.txt
+COPY ./docker /usr/app
 
 ENV PATH="/usr/local/bin/python3:$PATH"
+
 RUN pip install -U pip \
     && pip install -r requirements.txt
 

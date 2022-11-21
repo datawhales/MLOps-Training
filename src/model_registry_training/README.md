@@ -5,7 +5,7 @@
 
 ## Quick Start
 **0. Setup**  
-- `python==3.8.13` 버전을 이용하여 가상 환경을 구축합니다.
+- `python==3.9.15` 버전을 이용하여 가상 환경을 구축합니다.
 - 필요한 라이브러리를 다음의 명령어를 이용하여 설치합니다.
 ```console
 $ pip install -r requirements.txt
@@ -29,10 +29,14 @@ $ python create_experiment.py
 ```console
 $ python create_run.py
 ```
+- `export_data.py` 를 실행하여 DB container 에서 100개의 데이터를 잘 가져오는지 확인합니다.
+```console
+$ python export_data.py
+```
 <br>
 
 **3. Train Model & Save Model to MLFlow Server**
-- `train.py` 를 다음과 같이 실행하여 모델을 학습합니다.
+- 다음과 같이 `train.py` 를 실행하여 모델을 학습하고 MLFlow 에 모델을 logging 합니다.
 ```console
 $ python train.py
 ```
@@ -40,7 +44,7 @@ $ python train.py
 <br>
 
 **4. Download Model & Load Model from MLFlow Server**
-- `load.py` 를 다음과 같이 실행하여 저장된 모델을 다운로드하고 불러와서 iris data 샘플에 대해 inference 를 수행합니다.
+- 다음과 같이 `load_model.py` 를 실행하여 저장된 모델을 다운로드하고 불러와서 iris data 샘플에 대해 inference 를 잘 수행하는지 확인합니다.
 ```console
 $ python load_model.py
 ```

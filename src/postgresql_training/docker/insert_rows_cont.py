@@ -9,7 +9,7 @@ import psycopg2
 from sklearn.datasets import load_iris
 import time
 
-from postgresql_training.meta import MyDB
+from meta import MyDB
 
 # Load iris dataset
 iris_dataset = load_iris()
@@ -41,7 +41,7 @@ conn = psycopg2.connect(
     database=MyDB.database,
     user=MyDB.user,
     password=MyDB.password,
-    host=MyDB.host",
+    host=MyDB.host,
     port=MyDB.port,
 )
 

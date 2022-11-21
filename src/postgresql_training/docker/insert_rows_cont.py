@@ -57,7 +57,7 @@ while True:
             ) VALUES (%s, %s, %s, %s, %s)""", data_row
         )
 
-        time.sleep(5)
+        time.sleep(1)
 
         # Make the changes to the database persistent
         conn.commit()

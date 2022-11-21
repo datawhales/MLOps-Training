@@ -23,10 +23,10 @@ with conn.cursor() as cursor:
     cursor.execute(
         """CREATE TABLE IF NOT EXISTS iris_data (
             id serial PRIMARY KEY,
-            sepal_length_cm double precision,
-            sepal_width_cm double precision,
-            petal_length_cm double precision,
-            petal_width_cm double precision,
+            sepal_length float8,
+            sepal_width float8,
+            petal_length float8,
+            petal_width float8,
             target integer
         );"""
     )

@@ -6,7 +6,7 @@
 
 ## Quick Start
 **0. Setup**  
-- `python==3.8.13` 버전을 이용하여 가상 환경을 구축합니다.
+- `python==3.9.15` 버전을 이용하여 가상 환경을 구축합니다.
 - 필요한 라이브러리를 다음의 명령어를 이용하여 설치합니다.
 ```console
 $ pip install -r requirements.txt
@@ -23,7 +23,7 @@ $ docker pull postgres:14.0
 **2. Run PostgreSQL Container**  
 - 다음의 명령어를 terminal 에 입력하여 postgresql container 를 작동시킵니다.
 ```console
-$ docker run --name postgresql-container -e POSTGRES_DB=mydatabase -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=mypassword -p 5432:5432 -d postgres:14.0
+$ docker run --name postgres-server -e POSTGRES_DB=mydatabase -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -p 5432:5432 -d postgres:14.0
 ```
 <br>
 
@@ -43,7 +43,7 @@ $ python insert_row.py
 ```
 데이터가 테이블에 잘 삽입되었는지 확인하기 위해 다음과 같이 `psql` 을 통해 DB 에 직접 접속하여 확인해봅니다.
 ```console
-$ psql -d mydatabase -h localhost -U postgres -p 5432
+$ psql -U myuser -h localhost -p 5432 -d mydatabase
 $ mypassword
 ```
 <br>
@@ -58,20 +58,38 @@ $ python insert_rows_cont.py
 
 **6. Write Dockerfile & Build Image**  
 - 데이터를 지속적으로 테이블에 삽입하는 스크립트를 실행하는 도커 이미지를 빌드합니다.
-- 다음과 같이 이미지를 빌드하여 [docker hub](https://hub.docker.com/)에 업로드하였습니다.
+- 다음과 같은 형태로 이미지를 빌드하여 [docker hub](https://hub.docker.com/)에 업로드하였습니다.
 ```console
-$ docker build -f docker/Dockerfile -t datawhales/postgresql-training:0.1.2 .
+$ docker build -f docker/Dockerfile -t <YOUR IMAGE NAME> .
 ```
 - 해당 이미지를 사용하려면 다음과 같이 pull 하여 사용할 수 있습니다.
 ```console
-$ docker pull datawhales/postgresql-training:0.1.2
+$ docker pull datawhales/postgresql-training:0.1.7
 ```
 <br>
 
 **7. Run a Container Inserting Data to PostgreSQL Server**  
-- 빌드한 이미지를 이용하여 도커 컨테이너를 작동시키고 테이블에 데이터가 잘 들어가는지 확인합니다.
+- 데이터를 삽입하는 도커 컨테이너에서 DB 컨테이너로 접속할 수 있도록 docker network 를 설정해 주어야 합니다.
+- 다음과 같이 도커 네트워크를 생성합니다.
 ```console
-$ docker run datawhales/postgresql-training:0.1.2
+$ docker network create db-network
+```
+- 실행 중인 DB 컨테이너를 생성한 도커 네트워크에 연결합니다.
+```console
+$ docker network connect db-network postgres-server
+```
+- DB 컨테이너가 도커 네트워크에 잘 연결되었는지 확인합니다.
+```console
+$ docker network inspect db-network
+```
+- 이제 이미지를 이용하여 도커 컨테이너를 실행합니다.
+- 이 때, network 옵션에 DB 컨테이너가 연결된 도커 네트워크를 지정해 줍니다.
+```console
+$ docker run --name data-generator --network "db-network" --platform=linux/amd64 -d <YOUR IMAGE NAME>
+```
+- `psql` 을 통해 DB 에 직접 접속하여 데이터가 잘 삽입되는지 확인합니다.
+```console
+$ psql -U myuser -h localhost -p 5432 -d mydatabase
 ```
 <br>
 

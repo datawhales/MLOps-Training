@@ -1,7 +1,7 @@
 FROM amd64/python:3.9-slim
 
 LABEL maintainer="Seokgi Kim <datawhales@gmail.com>"
-WORKDIR /root
+WORKDIR /usr/app
 
 RUN apt-get update && apt-get install -y \
     curl \
@@ -20,10 +20,11 @@ RUN apt-get update && apt-get install -y \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./requirements.txt /root/requirements.txt
-COPY ./docker /root
+COPY ./requirements.txt /usr/app/requirements.txt
+COPY ./docker /usr/app
 
 ENV PATH="/usr/local/bin/python3:$PATH"
+
 RUN pip install -U pip \
     && pip install -r requirements.txt
 

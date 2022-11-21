@@ -14,7 +14,7 @@ from meta import MyDB
 # Load iris dataset
 iris_dataset = load_iris()
 features, labels = iris_dataset["data"], iris_dataset["target"]
-feature_names = ["sepal_length_cm", "sepal_width_cm", "petal_length_cm", "petal_width_cm"]
+feature_names = ["sepal_length", "sepal_width", "petal_length", "petal_width"]
 label_names = ["target"]
 
 feature_df = pd.DataFrame(features, columns=feature_names)
@@ -53,7 +53,7 @@ while True:
         # Execute a SQL command (insert rows continuously)     
         cursor.execute(
             """INSERT INTO iris_data (
-                sepal_length_cm, sepal_width_cm, petal_length_cm, petal_width_cm, target
+                sepal_length, sepal_width, petal_length, petal_width, target
             ) VALUES (%s, %s, %s, %s, %s)""", data_row
         )
 

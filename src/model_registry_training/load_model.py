@@ -17,7 +17,7 @@ def download_model():
     client = MlflowClient()
 
     # Get run info
-    df = mlflow.search_runs(max_results=1, experiment_names=["Test Experiment"])
+    df = mlflow.search_runs(max_results=10, experiment_names=["Default"])
     run_id_list = [id for id in df["run_id"]]
     
     for id in run_id_list:
@@ -25,7 +25,7 @@ def download_model():
     
     # Get run_id
     run_id_sample = run_id_list[0]
-    print(run_id_sample)
+    print(f"\nSample Run ID: {run_id_sample}\n")
 
     # Download model
     os.makedirs("download", exist_ok=True)

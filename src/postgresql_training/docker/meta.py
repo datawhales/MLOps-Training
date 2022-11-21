@@ -26,5 +26,5 @@ class MyDB:
     database: str = "mydatabase"
     user: str = "myuser"
     password: str = "mypassword"
-    host: str = "localhost"
+    host: str = "postgres-server"
     port: int = 5432

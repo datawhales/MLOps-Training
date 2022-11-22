@@ -4,3 +4,6 @@ init:
 
 simple-app:
 	uvicorn simple_app.crud:app --reload
+
+main:
+	uvicorn app.main:app --reload
